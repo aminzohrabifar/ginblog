@@ -1,0 +1,6 @@
+App:
+  Name: "Blog With Gin"
+
+Server:
+  Host: "localhost"
+  Port: "8080"
