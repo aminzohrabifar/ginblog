@@ -7,7 +7,7 @@ import (
 )
 
 func Routes(router *gin.Engine) {
-	router.GET("/ping", func(c *gin.Context) {
+	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message":  "pong",
 			"app_name": viper.Get("App.Name"),
