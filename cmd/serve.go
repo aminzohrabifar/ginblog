@@ -2,9 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"ginblog/config"
+	"ginblog/pkg/config"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 	"net/http"
 
 	"github.com/spf13/cobra"
@@ -24,7 +23,9 @@ var serveCmd = &cobra.Command{
 }
 
 func serve() {
-	configs := configSet()
+	config.Set()
+	configs := config.Get()
+
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
@@ -36,19 +37,4 @@ func serve() {
 	if err != nil {
 		fmt.Println(err)
 	}
-}
-
-func configSet() config.Config {
-	viper.SetConfigName("config")
-	viper.SetConfigType("yaml")
-	viper.AddConfigPath("config")
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Println("Error reading the configs")
-	}
-	var configs config.Config
-	err := viper.Unmarshal(&configs)
-	if err != nil {
-		fmt.Printf("unable to decode into struct, %v", err)
-	}
-	return configs
 }
