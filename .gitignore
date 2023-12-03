@@ -23,3 +23,5 @@ go.work
 .vscode
 config.yaml
 Qpay
+go.sum
+go.mod

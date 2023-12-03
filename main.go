@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"ginblog/cmd"
 	"ginblog/config"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
@@ -9,6 +10,9 @@ import (
 )
 
 func main() {
+	cmd.Execute()
+}
+func serve() {
 	configs := configSet()
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
