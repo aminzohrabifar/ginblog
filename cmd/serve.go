@@ -1,9 +1,10 @@
 package cmd
 
 import (
-	"fmt"
 	"ginblog/pkg/config"
+	"ginblog/pkg/routing"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 	"net/http"
 
 	"github.com/spf13/cobra"
@@ -24,17 +25,13 @@ var serveCmd = &cobra.Command{
 
 func serve() {
 	config.Set()
-	configs := config.Get()
-
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
+	routing.Init()
+	router := routing.GetRouter()
+	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message":  "pong",
-			"app_name": configs.App.Name,
+			"app_name": viper.Get("App.Name"),
 		})
 	})
-	err := r.Run(fmt.Sprintf("%s:%s", configs.Server.Host, configs.Server.Port)) // listen and serve on 0.0.0.0:8080
-	if err != nil {
-		fmt.Println(err)
-	}
+	routing.Serve()
 }
