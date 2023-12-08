@@ -4,3 +4,10 @@ App:
 Server:
   Host: "localhost"
   Port: "8080"
+
+Db:
+  Host: "localhost"
+  Port: "3306"
+  Username: "root"
+  Password: ""
+  Database: "ginblog"
